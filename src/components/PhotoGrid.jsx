@@ -10,10 +10,18 @@ export default function PhotoGrid({
   onToggleFavorite,
   searchQuery,
 }) {
-  // Loading state: Skeleton grid
+  // Loading state: Spinner and Skeleton grid
   if (loading) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex flex-col items-center justify-center mb-8 space-y-3">
+          <div
+            className="w-8 h-8 border-4 border-neutral-200 border-t-neutral-800 rounded-full animate-spin"
+            role="status"
+            aria-label="Loading photos"
+          />
+          <p className="text-sm font-medium text-neutral-500">Loading photos...</p>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {Array.from({ length: 8 }).map((_, index) => (
             <div

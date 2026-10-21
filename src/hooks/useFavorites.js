@@ -9,7 +9,9 @@ const STORAGE_KEY = 'celebrare_favorite_photos';
 function getInitialFavorites() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
-    return saved ? JSON.parse(saved) : [];
+    if (!saved) return [];
+    const parsed = JSON.parse(saved);
+    return Array.isArray(parsed) ? parsed : [];
   } catch (error) {
     console.error('Failed to load favorites from localStorage:', error);
     return [];

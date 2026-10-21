@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-// Using page=2&limit=30 from Picsum API to fetch 30 photos with diverse authors and unique images
-const API_URL = 'https://picsum.photos/v2/list?page=2&limit=30';
+const API_URL = 'https://picsum.photos/v2/list?limit=30';
 
 /**
  * Custom hook to fetch 30 photos from Picsum Photos API.
