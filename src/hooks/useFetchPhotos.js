@@ -1,12 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const API_URL = 'https://picsum.photos/v2/list?limit=30';
+// Using page=2&limit=30 from Picsum API to fetch 30 photos with diverse authors and unique images
+const API_URL = 'https://picsum.photos/v2/list?page=2&limit=30';
 
 /**
  * Custom hook to fetch 30 photos from Picsum Photos API.
- * Handles loading, error, cleanup with AbortController, and refetching.
- *
- * @returns {{ photos: Array, loading: boolean, error: string|null, retry: Function }}
+ * Returns photos, loading, and error states, with cleanup and retry support.
  */
 export function useFetchPhotos() {
   const [photos, setPhotos] = useState([]);
@@ -14,7 +13,6 @@ export function useFetchPhotos() {
   const [error, setError] = useState(null);
   const [retryTrigger, setRetryTrigger] = useState(0);
 
-  // Function allowing UI to retry fetching when an error occurs
   const retry = useCallback(() => {
     setLoading(true);
     setError(null);
@@ -39,7 +37,6 @@ export function useFetchPhotos() {
         const data = await response.json();
         setPhotos(data);
       } catch (err) {
-        // Ignore AbortError when unmounted
         if (err.name === 'AbortError') {
           return;
         }
@@ -51,7 +48,6 @@ export function useFetchPhotos() {
 
     fetchPhotos();
 
-    // Cleanup function: abort fetch on unmount or retry
     return () => {
       controller.abort();
     };
